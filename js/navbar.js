@@ -112,9 +112,9 @@ document.addEventListener("DOMContentLoaded", function()
 					<a href="#" class="dropbtn">Tech Tools</a>
 					<div class="dropdown-content">
 						<a href="bmi.html">BMI Calculator</a>
-						<a href="decay.html">Decay Calculator</a>
-						<a href="activity.html">Activity</a>
-						<a href="gfr.html">GFR</a>
+						<a href="Decay.html">Decay Calculator</a>
+						<a href="Activity.html">Activity</a>
+						<a href="GFR.html">GFR</a>
 						<a href="volume.html">Volume Draw</a>
 
 					</div>
