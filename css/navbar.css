@@ -1,0 +1,228 @@
+/*
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+*/
+
+.pinkBackground
+{
+	background-color: rgb(217, 38, 157);
+	border-color: rgb(217, 38, 157);
+}
+
+.yellowBackground
+{
+	background-color: rgb(242, 223, 13);
+	border-color: rgb(242, 223, 13);
+	color: rgb(16, 18, 3);
+}
+
+
+
+.greenBackground
+{
+	background-color: rgb(0, 137, 90);
+	border-color: rgb(0, 137, 90);
+}
+.redBackground
+{
+	background-color: rgb(217, 53, 38);
+	border-color: rgb(217, 53, 38);
+}
+.purpleBackground
+{
+	background-color: rgb(146, 54, 164);
+	border: rgb(146, 54, 164);
+}
+
+#page-footer {
+    background-color: var(--pico-progress-background-color);
+    text-align: center;
+    padding: 10px;
+    flex-shrink: 0;
+	width: 100%;
+	box-sizing: border-box;
+	margin-top: auto;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--pico-background-color);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+}
+
+.close {
+    color: rgb(217, 53, 38);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(114, 23, 15);
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-close-button
+{
+    padding: 10px 20px;
+    text-align: center;
+    display: block;
+    margin: 20px auto 0; /* Center align */
+    cursor: pointer;
+}
+
+/*
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+*/
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+h1{
+	/*color: var(--pico-primary);*/
+}
+/* Base Pico.css styling for navbar */
+.navbar, .right-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: var(--pico-background-color);
+}
+
+/* Position the right menu to the right of the parent menu */
+.right-menu 
+{
+	top: 0;
+	left: 100%;
+}
+
+.navbar > li {
+    position: relative;
+}
+
+.navbar > li a, .dropbtn {
+    display: block;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--pico-color);
+    transition: background-color 0.3s;
+}
+
+.navbar > li a:hover, .dropdown:hover .dropbtn, .right-menu a:hover {
+    background-color: var(--pico-primary-focus);
+    color: var(--pico-primary-inverse);
+}
+
+/* Dropdown content styling */
+.dropdown-content, .dropdown-content-hidden, .right-menu {
+    display: none;
+    position: absolute;
+    background-color: var(--pico-form-element-background-color);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    min-width: 160px;
+    z-index: 1;
+    margin-top: 0.5rem;
+}
+
+.dropdown-content a, .dropdown-content-hidden a {
+    color: var(--pico-background-color);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover, .dropdown-content-hidden a:hover {
+    background-color: var(--pico-primary-focus);
+    color: var(--pico-primary-inverse);
+}
+
+/* Show the dropdown menu */
+.dropdown:hover .dropdown-content, .right-menu-item:hover .right-menu   {
+    display: block;
+}
+
+
+
+/* anything with a secure class is hidden, unless it has the cookie or is unlocked with the password */
+.secure
+{
+	/*visibility : hidden;*/
+	display: none;
+}
+
+/*forcing the background color to be solid in the passowrd div so that the text can be read */
+.passwordDiv
+{
+	background-color: var(--pico-form-element-background-color);
+	padding 10px;
+	text-align: center;
+	font-weight: bold;
+}
+.passwordDiv button {
+  margin-right: 10px; /* Adjust the value as needed */
+}
+
+.bordered-div {
+  border: 2px solid var(--color);
+ /* padding: 10px; /* Optional: Add padding for spacing */
+/*  width: 210mm; /* Approximately 816px */
+ /* height: 297mm; /* Approximately 1134px */
+  margin: 0 auto;
+  overflow: auto;
+}
+
