@@ -1,0 +1,206 @@
+/*
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+*/
+
+
+#FinddropDown
+{
+	display:none;
+}
+#recordList
+{
+	display: inline-block;
+}
+.loadDatabase
+{
+	display:none;
+}
+
+
+#Message, #resultsSection, #canvasDiv, #resultsSingleWarning, #confirmationTextSingle
+{
+	display: none;
+}
+.resultsSection
+{
+	height: 297mm;
+}
+
+.inline-fieldset 
+{
+	display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Adjust the gap between rows */
+}
+.inline-fieldset .row 
+{
+	display: flex;
+    align-items: center; /* Align items vertically in the center */
+    gap: 1rem; /* Adjust the gap between elements */
+}
+
+.inline-fieldset .row > * 
+{
+	flex: 1 1 auto; /* Allow elements to grow and shrink */
+}
+
+.inline-fieldset .row > :first-child 
+{
+	flex: 0 0 15%; /* Set the first child to always take 30% width */
+}
+
+.divider 
+{
+	border-top: 3px dashed var(--divider-color, #ccc); /* Increased width and used variable */
+	width: 100%;
+	margin: 20px 0;
+}
+
+.no-border 
+{
+	border: none;
+}
+
+.inline-fieldset-results 
+{
+	display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Adjust the gap between rows */
+	overflow: auto;
+}
+
+.inline-fieldset-results .row 
+{
+	display: flex;
+	align-items: center; /* Align items vertically in the center */
+	gap: 0rem; /* Adjust the gap between elements */
+}
+
+.inline-fieldset-results .row > * 
+{
+	flex: 1 1 auto; /* Allow elements to grow and shrink */
+}
+
+.inline-fieldset-results .row > :first-child 
+{
+	flex: 0 0 15%; /* Set the first child to always take 30% width */
+}
+
+#logo{
+	max-height: 20mm; max-width: 100%; height: auto; width: auto;
+}
+
+
+	
+	
+@media print 
+{  
+	#page-footer{
+		display: none;
+	} 
+	@page 
+	{
+		size: A4 portrait;
+		border:none;
+	}
+	::-webkit-scrollbar 
+	{
+		display: none;
+	}
+	#logo{
+		max-height: 20mm; max-width: 100%; height: auto; width: auto;
+	}
+	.bordered-div 
+	{
+		border: 2px solid !important;
+		border-color: rgb(128,128,128) !important;
+		padding: 2px;
+		margin: 0 auto;
+		overflow: none;
+		width: 100%;
+		box-shadow: none !important;
+		outline: none !important;
+	}
+	
+	.mainBody, #printBtn, #navbar-container, #canvasDiv, #saveDataBaseBtn
+	{
+		overflow: none;
+		margin: 0;
+		display: none;
+		padding :0;
+		border: none
+		box-shadow: none !important;
+		outline: none !important;
+	}
+		
+	.row input, .row label 
+	{
+		
+		overflow:show;
+		padding:2px;
+		width: 100%;
+		border: none
+		box-shadow: none !important;
+		outline: none !important;
+		/*font-size: 16px;*/
+	}
+		
+	body, .container, .row , #resultsSection , #resultsForm
+	{
+	
+		/*font-size: 16px;*/
+        margin: 0; /* Remove default margins */
+		padding: 0;
+		width: 210mm;
+		display: inline-block;
+		overflow: none;
+		border: none;
+		box-shadow: none !important;
+		outline: none !important;
+
+    }
+	#resultsSection 
+	{
+		contain: size;
+		margin: 2em;
+		/*transform-origin: top center;*/
+		/*transform: scale(0.8,0.62);/**/
+		/*transform: scale(0.62);*/
+		overflow: none; /* Hide overflow content */
+		border:none;
+		outline: none !important;
+	}
+	.inline-fieldset-results
+	{
+		overflow: none; /* Hide overflow content */
+		border:none;
+		outline: none !important;
+	}
+
+
+}

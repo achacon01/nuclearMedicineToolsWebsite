@@ -1,0 +1,140 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Newborn Milk</title>
+    <meta name="custom-title" content="Newborn Milk">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+ 	<script src="js/navbar.js"></script> 
+  	<script src="milk/milk.js"></script> 
+      <style>
+        .pdfViewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+        }
+        .closeButton {
+            display: none;
+        }
+		.red-button{
+		background-color: rgb(217, 53, 38);
+		border-color: rgb(217, 53, 38);
+		}
+    </style>
+
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container secure">
+
+	<!-- the navbar -->
+	<div id="navbar-container"></div>
+	<h1> New born exposure through breast milk </h1> 
+	<p> This tool is to only be used by a nuclear medicine medical physicist. The calculations and output from this tool require experienced understanding and interpretation.</p>
+	<p> The purpose of this tool is to provide urgent calculations and advice on the dose to newborns. This will estimate worst case scenaro doses and list the <a href="#" class="pdfLink" data-pdf="milk/rps14_2 radiation protection in nuclear medicine.pdf" data-target="pdfViewer2" data-close="closeButton2"> ARPANSA RPS 14.2 (as of July 2024) </a> and calculated interruption periods.   </p>
+	<iframe id="pdfViewer2" class="pdfViewer"></iframe>
+	<button id="closeButton2" class="closeButton red-button">Close PDF</button>
+	
+	<p> This tool is designed to provide estimations of dose in an emergency or urgent case. Both the contact and milk internal dose are taken into account. New born dose can be significantly different to the listed dose depending on several patient and baby factors. <mark><b>Proceed with care when using this tool</b></mark> </p>
+	
+	<p> The new born effective dose coefficients are taken from: <a href="#" class="pdfLink" data-pdf="milk/Excretion of radionuclides in human breast milk after nuclear medicine examinations.pdf" data-target="pdfViewer1" data-close="closeButton1"> Leide-Svegborn, S., Ahlgren, L., Johansson, L., & Mattsson, S. (2016). Excretion of radionuclides in human breast milk after nuclear medicine examinations. Biokinetic and dosimetric data and recommendations on breastfeeding interruption. In European Journal of Nuclear Medicine and Molecular Imaging (Vol. 43, Issue 5, pp. 808–821). Springer Science and Business Media LLC. https://doi.org/10.1007/s00259-015-3286-0 </a> </p>
+    
+	<iframe id="pdfViewer1" class="pdfViewer"></iframe>
+	<button id="closeButton1" class="closeButton red-button">Close PDF</button>
+	  
+
+	<p> This tool assumes: 
+		<list>
+			<li> The baby feeds every 133 mL every 4 hours. </li>
+			<li> The baby feeds for 30 minutes. </li>
+			<li> External exposure is calculated via the gamma constants of the isotope with patient attenuation factors included. </li>
+
+		</list>
+
+
+
+	</p>
+	<form name="inputForm">
+		<div class="grid">
+			<label for="radiotracer">Mothers Radiotracer: </label>
+			<select id="radiotracer">
+				<option value="F18 FDG">F18 FDG</option>
+				<option value="Tc99m MIBI">Tc99m MIBI</option>
+				<!--<option value="Tc99m aerosol or Technegas">Tc99m aerosol or Technegas</option> -->
+				<!--<option value="Tc99m DMSA">Tc99m DMSA</option>-->
+				<option value="Tc99m DTPA">Tc99m DTPA</option>
+				<option value="Tc99m MAA">Tc99m MAA</option>
+				<option value="Tc99m MAG3">Tc99m MAG3</option>
+				<option value="Tc99m MDP">Tc99m MDP</option>
+				<option value="Tc99m pertechnetate">Tc99m pertechnetate</option>
+			</select>
+		</div>
+		<div class="grid">
+			<label for="activity">Mothers administered activity (MBq): </label>
+			<input id="activity" type="number" min="0" max="1000">
+			<!--<input id="activity" type="number" min="0" step="1" onchange="if (!validity.valid) this.value=Math.round(this.value);">-->
+		</div>
+		<div class="grid">
+			<label for="delayTime">Time between mothers radiotracer administration and baby's first feed (hour): </label>
+			<input id="delayTime" type="number" min="0" max="1000">
+		</div>
+
+		<br>
+	</form>
+	<button onclick="calculate()">Calculate</button>
+	
+	<form name="resultsForm">
+		<div class="grid">
+			<label>Effective dose: </label>
+			<input readonly id="effectiveDose">
+		</div>
+		<!--<div class="grid">
+			<label> Calculated ceasation time (hours): </label>
+			<input readonly id="CalcCeasTime">
+		</div>-->
+		<div class="grid">
+			<label> ARPANSA ceasation time: </label>
+			<input readonly id="ARPANSACeasTime">
+		</div>
+	</form>	
+	
+</main>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity Administered</title>
+    <meta name="custom-title" content="Activity Administered">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+
+	<script src="AdministeredActivity/AdministeredActivity.js"></script> 
+
+	<script src="js/navbar.js"></script> 
+
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container secure">
+
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h1> Emergency administered activity calculator </h1>
+   
+   <p> The purpose of this page is to get an emergency calculation of the activity that is administered to the patient. This is for the scenario that a patient has been partially administered an unknown activity and needs a top up activity or has been given a top up activity prior to a scan. </p>
+   
+   
+ 	<form name="activityForm">
+		<div>
+			The radioisotope is: 		
+			
+			<select type="text" id="inputTracer" onChange="dataEntry()" style="width: 150px;">
+			<option value="F18"> F18 </option>
+			<option value="Tc99m"> Tc99m </option>
+			
+		</select>
+		</div>	
+	
+		<div>
+			
+			Using a H*10 probe, the patient's external dose rate at 1 meter is: <input id="ptExternalDoseRate" type="number"  style="width: 150px;" onchange="dataEntry()"> &mu;Sv/hr at <input id="refTime1" type="time" onChange="dataEntry()" style="width: 150px;" >
+
+
+			<br>
+			The estimated activity is <input readonly id="ptEarlyDoseEstimate" type="text"  style="width: 150px;"> MBq of radiopharmaceutical.
+		</div>
+		
+		<h3> Patient specific gamma constant </h3>
+		If you top up the patient you can get a more accurate estimation of the activity by calculating the patient specific &Gamma; constant: <br>
+		The patient is topped up with <input id="ptTopUpActivity" type="number"  style="width: 150px;" onchange="dataEntry()"> MBq with a reference time of  <input id="refTimeTopUpCalc" type="time" onChange="dataEntry()" style="width: 150px;" > with a residual of <input id="residualActivity" type="number"  style="width: 150px;" onchange="dataEntry()"> MBq and time of  <input id="residualTime" type="time" onChange="dataEntry()" style="width: 150px;" >
+		<br>
+		The remasured external dose rate at 1 meter is: <input id="ptExternalDoseRate2" type="number"  style="width: 150px;" onchange="dataEntry()"> &mu;Sv/hr at <input id="refTime2" type="time" onChange="dataEntry()" style="width: 150px;" >
+		
+		<br><br>
+		The estimated activity in the patient is <input readonly id="ptActivityFinal" type="number"  style="width: 150px;" onchange="dataEntry()"> MBq at <input readonly id="refTimeFinal" type="time" onChange="dataEntry()" style="width: 150px;" >
+		
+	</form>
+	
+	
+
+		
+	
+
+
+		
+
+
+</main>
+</body>
+</html>

@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function()
 {
 	//This is the actual code, you could paste this into each calling file
 	const navbarHTML = `
+	<h3 style="text-align:center;"> Do NOT link to this website. Download and host your own copy. This is a demo for evaluation only, and subject to change at any time. </h3>
 		<nav class="container-fluid">
 			<ul class="navbar">
 				<li class="dropdown">

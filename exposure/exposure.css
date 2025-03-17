@@ -1,4 +1,4 @@
-<!--
+/*
     User License Agreement
 
     This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
@@ -25,40 +25,63 @@
        of Australia.
 
     © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
--->
+*/
+.divider {
+  border-top: 3px dashed var(--divider-color, #ccc); /* Increased width and used variable */
+  width: 100%;
+  margin: 20px 0;
+}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Physics Tools</title>
-    <meta name="custom-title" content="Physics Tools">
+.dynamic-width {
+    width: auto; /* Ensure the width is set to auto */
+}
+
+/* Hidden span for measuring the text width */
+.hidden-span {
+    visibility: hidden;
+    white-space: nowrap;
+    position: absolute;
 	
-	<meta charset="UTF-8">
-	<!-- making the website pretty --> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="externaljs/pico.css">
-	<script src="js/navbar.js"></script> 
-   
-</head>
+}
 
-<body class="theme-auto">
-            
+.alinedRight
+{
+		text-align: left;
 
- <!-- todo fix and implement the nav bar when the other sites are completed --> 
-<main class="container">
+}
 
-	<!-- the navbar -->
-	<div id="navbar-container"></div>
-   <h1>   Physics tools </h1> 
-	<div>
-		<p> This website is designed to contain tools commonly used in nuclear medicine. This is an open-source project. All results are as is and are provided without any guarantees.<p> 
-		<p> Best efforts are made to make sure everything is correct,  if you find an error please post an issue on the github website <a href="https://github.com/achacon01/nuclearMedicineToolsWebsite" >https://github.com/achacon01/nuclearMedicineToolsWebsite</a>. </p>
+@media print  
+{
+	            body {
+                margin: 0; /* Remove default margins */
+            }
+		button{
+		display: none;
+		}
 
 
-	</div>
-   
+	.numberInputDiv label, .numberInputDiv input, .grid
+	{
+		display: inline-block;
+		text-align: left;
+        flex-wrap: nowrap !important; /* Prevent wrapping in print view */
+		margin: 0 !important; /* Ensure no margins are applied */
+        /*font-size: 14px; /* Optionally scale down input text */
 
- 
-</main>
-</body>
-</html>
+	}
+}
+
+        .pdfViewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+        }
+        .closeButton {
+            display: none;
+			background-color: rgb(217, 53, 38);
+			border-color: rgb(217, 53, 38);
+        }
+		.red-button{
+		
+		}

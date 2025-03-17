@@ -1,0 +1,209 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extravasation dose calculator</title>
+    <meta name="custom-title" content="Extravasation Calculator">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	<link rel="stylesheet" href="extravasation/extravasation.css">
+	<script src="js/navbar.js"></script> 
+
+	<script src="extravasation/extravasation.js"></script> 
+
+
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container secure">
+
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h1> Extravasation dose calculator </h1>
+   
+<p>
+	Welcome to the Extravasation dose calculator helper. It aims to help calculate the extravasated activity and the dose to a patient.
+	For SPECT images, it is assumed that the extravasation has been imaged using a dual headed scanner in H mode over the site of the injection. A second time point image would be useful to help calculate the effective clearance half life. The volume of the extravasation should be estimated using the images prior to using this tool.
+	For PET images it is assumed that the PET image has been undertaken and then the extravasation has been identified.
+</p>
+
+   
+      
+
+   	<fieldset  class="grid">	
+
+		<label for="radioisotope" style="width: 150px;  display: inline-block;"> Radioisotope: </label> 
+		<select type="text" id="radioisotope" onChange="dataEntry();updateScannerMenu()" style="width: 150px;  display: inline-block;">
+			<option value=" " disabled selected>  </option>
+			<option value="Tc99m"> Tc99m  </option>
+			<option value="F18"> F18 </option>
+			<option value="Ga68"> Ga68 </option>
+
+		</select>
+		  
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+
+		<label for="Camera" style="width: 150px; display: inline-block;"> Camera: </label> 
+		<select type="text" id="Camera" onChange="dataEntry()" style="width: 250px; display: inline-block;">
+			<option value=" " disabled selected>  </option>
+		</select>
+	
+	</fieldset>
+	
+	<fieldset  class="grid spect">	
+		<label for="thickness" style="text-align: right; padding: 0px 0;"> Thickness of arm for attenuation correction (cm): </label>  <input type="number" id="thickness"  style="width: 150px;" onchange="dataEntry()">
+	</fieldset>
+	<fieldset  class="grid spect">	
+		<label for="attenFactor" style="text-align: right; padding: 0px 0;"> The attenuation factor of tissue is (cm-1): </label>  <input type="number" id="attenFactor" value ="0.149"  style="width: 150px;" onchange="dataEntry()">
+	</fieldset>
+
+   	
+	<fieldset role="group" class="grid">	
+	<label for="Activity" style="text-align: right; padding: 0px 0;"> Injected <br> activity (MBq) </label>  <input type="number" id="Activity"  style="width: 150px;" onchange="dataEntry()">
+   	
+	<label for="timeCalibrated" style="text-align: right; padding: 15px 0;"> Calibration Time: </label>  <input type="time" id="timeCalibrated" style="width: 150px;" onchange="dataEntry()">
+
+	<label for="volumeExtravasation" style="text-align: right; padding: 15px 0; width:200px;"> Volume of extravasation (mL) </label>  <input type="number" style="width: 150px;" id="volumeExtravasation" onchange="dataEntry()">
+		
+   </fieldset>		
+   
+   <br>
+   <br>
+   	<fieldset role="group" class="grid spect">	
+		<label for="imagingTime1" style="text-align: right; padding: 15px 0;" > Imaging Time 1: </label>  <input type="time" id="imagingTime1" style="width: 150px;" onchange="dataEntry()"> 
+		<label for="imagingCounts1_1" style="text-align: right; padding: 15px 0;"> Counts in ROI: </label>  <input type="number" id="imagingCounts1_1" style="width: 150px;" onchange="dataEntry()">
+		<label for="imagingCounts1_2" style="text-align: right; padding: 15px 0;"> Counts in ROI, head 2: </label>  <input type="number" id="imagingCounts1_2" style="width: 150px;" onchange="dataEntry()">
+		<label for="imagingDuration1" style="text-align: right; padding: 15px 0;"> Duraton of scan (min): </label>  <input type="number" id="imagingDuration1" style="width: 150px;" onchange="dataEntry()">		
+    </fieldset>		
+ 
+   
+    <fieldset role="group" class="grid spect">	
+		<label for="imagingTime2" style="text-align: right; padding: 15px 0;" > Imaging Time 2: </label>  <input type="time" id="imagingTime2" style="width: 150px;" onchange="dataEntry()"> 
+		<label for="imagingCounts2_1" style="text-align: right; padding: 15px 0;"> Counts in ROI: </label>  <input type="number" id="imagingCounts2_1" style="width: 150px;" onchange="dataEntry()">
+		<label for="imagingCounts2_2" style="text-align: right; padding: 15px 0;"> Counts in ROI, head 2: </label>  <input type="number" id="imagingCounts2_2" style="width: 150px;" onchange="dataEntry()">
+		<label for="imagingDuration2" style="text-align: right; padding: 15px 0;"> Duraton of scan (min): </label>  <input type="number" id="imagingDuration2" style="width: 150px;" onchange="dataEntry()">		
+    </fieldset>	
+   
+      <fieldset role="group" class="grid pet">	
+		<label for="imagingTimePET" style="text-align: right; padding: 15px 0;" > Imaging Time : </label>  <input type="time" id="imagingTimePET" style="width: 150px;" onchange="dataEntry()"> 
+		<label for="activiyPET" style="text-align: right; padding: 15px 0;"> Integrated total (Bq/mL . mL) </label>  <input type="number" id="activiyPET" style="width: 150px;" onchange="dataEntry()">
+    </fieldset>		
+   
+   
+   <br>
+   <br>
+  
+	<fieldset   class="grid">	
+		<label for="eHalfLife" style="width: auto;  display: inline-block;"> The estimated effective half-life is (h): </label> <input type="number" id="eHalfLife" style="width: auto;  display: inline-block;" onChange="updateResTime()" > <button class="spect" onclick="calculateEHalfLife();updateResTime()" style="width: 50%;" >  Calculate based on data </button> 
+	</fieldset>		
+	<fieldset  class="grid">	
+	<label for="resTime" style="width: auto;  display: inline-block;"> The time-integrated activity coefficient (residence time) (MBq.h / MBq): </label>  <input type="text" readonly id="resTime" style="width: auto;  display: inline-block;" ><p></p>
+	</fieldset>		
+
+	<fieldset   class="grid">	
+		<label for="eActivity" style="width: auto;  display: inline-block;"> The extravasated activity is (MBq): </label> <input type="text" id="eActivity" style="width: auto;  display: inline-block;" readonly >
+		The estimated dose (mGy) <input type="text" id="eDose"  style="width: auto;  display: inline-block;" readonly><button onclick="calculateExtravasation()" > Calculate </button>
+   </fieldset>
+   
+   <!--
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+ 	<form id="volumeForm">
+		<div>
+			I have <input id="inputmL" type="number"  min=0 size="5" style="width: 150px;" onkeypress="dataEntry()" step="0.01"> mL of stock radiopharmaceutical.
+			The stock activity is: <input id="stockActivity" type="number"  style="width: 150px;" onkeypress="dataEntry()"> 		
+			<select type="text" id="inputActivityUnit" onChange="dataEntry()" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq" selected> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi"> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select>
+		</div>	
+	
+		<div>
+			I want <input id="wantActivity" type="number"  style="width: 150px;" onchange="dataEntry()">    
+					<select type="text" id="wantActivityUnit" onChange="dataEntry()" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq" selected> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi"> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select>
+		of radiopharmaceutical.
+		</div>
+	</form>
+	
+	<div>
+		<button onclick="calculate()">Calculate</button><br>
+		The draw volume is: <input id="CalculatedVolume" type="text"  size="15" style="width: 200px;" readonly value="Undetermined" >.
+	
+	</div>
+
+		
+	
+-->
+
+		
+
+
+</main>
+</body>
+</html>

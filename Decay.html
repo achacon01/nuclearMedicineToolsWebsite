@@ -1,0 +1,142 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decay</title>
+    <meta name="custom-title" content="Decay">
+
+	<meta charset="UTF-8">
+ 
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	<script src="js/navbar.js"></script> 
+	
+	<script src="decay/decay.js"></script> 
+	<link rel="stylesheet" href="decay/decay.css">
+
+</head>
+
+<body class="theme-auto">
+           
+<main class="container">
+
+	<div class="standardBody">
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h1> Decay Calculator </h1>
+   
+   <p> This webpage will calculate the activity of isotopes which have decayed or undecayed. Undecayed means if you have this activity now, was the activity at that time. </p>
+   
+    <form name="activityForm" id="activityForm">
+		<div class="grid">
+				<div class="form-group">
+					<label for="isotope"> Isotope: </label>
+					<select type="text" id="isotope" value="F18" onChange="onCalculateDecay()">
+						  <option value="F18" selected>F18</option>
+						  <option value="C11">C11</option>
+						  <option value="Cu64">Cu64</option>
+
+						  <option value="Ga67">Ga67</option>
+						  <option value="Ga68">Ga68</option>
+						  <option value="Ge68">Ge68</option>
+
+						  <option value="I123">I123</option>
+						  <option value="I124">I124</option>
+						  <option value="I125">I125</option>
+						  <option value="I131">I131</option>
+						  <option value="In111">In111</option>
+
+						  <option value="Lu177">Lu177</option>
+
+
+						  <option value="N13">N13</option>
+						  <option value="Na22">Na22</option>
+						  <option value="O15">O15</option>
+						  <option value="Tc99m">Tc99m</option>
+						  <option value="Tl201">Tl201</option>
+
+						  <option value="Y90">Y90</option>
+						  <option value="Zr89">Zr89</option>
+
+					</select>
+			</div>
+			<div class="form-group">
+				<label for="PreInjectedActivity"> Activity: </label>
+				<input id="PreInjectedActivity" type="number" onChange="onCalculateDecay()" min="0">
+			</div>
+		</div>
+		
+		<div class="grid">
+			<div class="form-group">
+				<label for="CalibrationDateTime"> Calibration Time: </label>
+				<input id="CalibrationDateTime" type="datetime-local" onclick="onCalculateDecay()" onChange="onCalculateDecay()">
+			</div>
+			<div class="form-group">
+				<label for="PostInjectedDateTime"> Injection Time: </label>
+				<input id="PostInjectedDateTime" type="datetime-local" onChange="onCalculateDecay()">
+			</div>
+		</div>
+	</form>
+   
+    <form name="resultsForm">
+		<div class="grid">
+			<div class="form-group">
+				<label for="InjectionDecayed"> Decayed Activity: </label>
+				<input id="InjectionDecayed" type="text" readonly>
+			</div>
+			<div class="form-group">
+				<label for="InjectionUndecayed"> Undecayed Activity: </label>
+				<input id="InjectionUndecayed" type="text" readonly>
+			</div>
+		</div>	
+	</form>
+
+    <form name="currentForm">
+		<label for="CurrentDateTime"> Current Time: </label>
+		<input id="CurrentDateTime" type="text" readonly>
+		<div class="grid">
+			<div class="form-group">
+				<label for="CurrentDecayed"> Current Decayed: </label>
+				<input id="CurrentDecayed" type="text" readonly>
+			</div>
+			<div class="form-group">
+				<label for="CurrentUndecayed"> Current Undecayed: </label>
+				<input id="CurrentUndecayed" type="text" readonly>
+			</div>
+		</div>	
+	</form>
+
+
+</main>
+</body>
+</html>

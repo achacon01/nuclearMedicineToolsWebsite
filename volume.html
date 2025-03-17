@@ -30,15 +30,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Physics Tools</title>
-    <meta name="custom-title" content="Physics Tools">
-	
+    <title>Volume Calculator</title>
+    <meta name="custom-title" content="Volume Calculator">
+
 	<meta charset="UTF-8">
+
 	<!-- making the website pretty --> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="externaljs/pico.css">
+
+	<script src="volume/volume.js"></script> 
+
 	<script src="js/navbar.js"></script> 
-   
+
 </head>
 
 <body class="theme-auto">
@@ -47,18 +51,63 @@
  <!-- todo fix and implement the nav bar when the other sites are completed --> 
 <main class="container">
 
-	<!-- the navbar -->
+   <!-- the navigation bar -->
 	<div id="navbar-container"></div>
-   <h1>   Physics tools </h1> 
-	<div>
-		<p> This website is designed to contain tools commonly used in nuclear medicine. This is an open-source project. All results are as is and are provided without any guarantees.<p> 
-		<p> Best efforts are made to make sure everything is correct,  if you find an error please post an issue on the github website <a href="https://github.com/achacon01/nuclearMedicineToolsWebsite" >https://github.com/achacon01/nuclearMedicineToolsWebsite</a>. </p>
-
-
-	</div>
    
+   <h1> Volume Draw Calculator </h1>
+   
+   <p> The purpose of this page is to calculate the volume required to draw up from a  solution to achieve a desired activity. </p>
+   
+   
+ 	<form id="volumeForm">
+		<div>
+			I have <input id="inputmL" type="number"  min=0 size="5" style="width: 150px;" onkeypress="dataEntry()" step="0.01"> mL of stock radiopharmaceutical.
+			The stock activity is: <input id="stockActivity" type="number"  style="width: 150px;" onkeypress="dataEntry()"> 		
+			<select type="text" id="inputActivityUnit" onChange="dataEntry()" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq" selected> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi"> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select>
+		</div>	
+	
+		<div>
+			I want <input id="wantActivity" type="number"  style="width: 150px;" onchange="dataEntry()">    
+					<select type="text" id="wantActivityUnit" onChange="dataEntry()" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq" selected> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi"> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select>
+		of radiopharmaceutical.
+		</div>
+	</form>
+	
+	<div>
+		<button onclick="calculate()">Calculate</button><br>
+		The draw volume is: <input id="CalculatedVolume" type="text"  size="15" style="width: 200px;" readonly value="Undetermined" >.
+	
+	</div>
 
- 
+		
+	
+
+
+		
+
+
 </main>
 </body>
 </html>

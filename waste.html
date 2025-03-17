@@ -1,0 +1,153 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waste Calculator</title>
+    <meta name="custom-title" content="Waste Calculator">
+
+	<meta charset="UTF-8">
+ 
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+		
+	<script src="js/navbar.js"></script> 
+	
+	
+	<script src="waste/waste.js"></script> 
+	<link rel="stylesheet" href="waste/waste.css">
+
+    <script src="externaljs/jquery.js"></script>
+</head>
+
+<body class="theme-auto">
+
+
+
+
+	
+
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container">
+
+	<div class="standardBody">
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h2> Waste Label Creator </h2>
+   
+   <p> The purpose of this is to calculate when the waste will fall below a 0.5 &mu;Sv/hr peak surface dose and print a radiation label for it. </p>
+   
+   <h3> Waste Details </h3>
+		<div class="grid"> 
+			<div>
+				Name: 
+			</div>	
+			<div>
+				<input id="PersonName" type="text" >
+			</div>
+		</div>
+		<div class="grid"> 
+			<div>
+				Isotope: 
+			</div>	
+			<div>
+		<select type="text" id="isotopeSelect" value="" onChange="updateIsotope()">
+			<option value="I131"> I131 </option>
+			<option value="Tc99m">Tc99m</option>
+			<option value="F18"> F18  </option>
+			<option value="Y90"> Y90 </option>
+			<option value="Lu177"> Lu177 </option>
+			<option value="Ga68"> Ga68 </option>
+			<option value="Zr89"> Zr89 </option>
+			<option value="Cu64"> Cu64 </option>
+			<option value="I124"> I124 </option>
+		
+		</select>
+	</div>
+		</div>		
+		<div class="grid"> 
+			<div>
+				Peak surface dose: 
+			</div>	
+			<div>
+				<input id="currentPeakSurafeDose" type="number"  min=0 size="5" style="width: 150px;" onChange="updatePeakSurfaceDose()" step="0.001"> &mu;Sv/hr
+			</div>
+		</div>
+		<div class="grid"> 
+			<div>
+				Date and time: 
+			</div>	
+			<div>
+			  <fieldset role="group">
+				<input id="currentDateTime" type="datetime-local" onChange="SetTime()" > 
+				 <input type="submit" value="Now" onclick="updateCurrentTime()" />
+				</fieldset>
+				<!--<button id="updateTime" onclick="updateCurrentTime()">Now</button>-->
+			</div>
+		</div>
+
+
+
+
+	<button id="calculateButton" onclick="calculate()">Calculate</button>
+	<br>
+	
+	The waste should be check on
+	<p id="checkDate"> Push Calculate </p>
+
+	<button id="PrintButton" onclick="printPage()" style="display: none;" >Print label</button> <button class="purpleBackground" id="saveButton" onclick="writeToDatabase()" style="display: none;">Save to DataBase</button>
+
+    </div>
+
+    <div id="PrintContainer" class="PrintContainer">
+        <img src="waste/RadioactiveWasteLabel.png" class="imagePrint">
+
+		<input id="printDateClosed" type="text" class="labelText" style="width: 300px;"  placeholder="ERROR" readonly>
+		<input id="printIsotope" type="text" class="labelText" style="width: 200px;" placeholder="ERROR" readonly>
+		<input id="printActivity" type="text" class="labelText" style="width: 200px;" placeholder="ERROR" readonly>
+		
+		<input id="printName" type="text" class="labelText" style="width: 200px;" placeholder="ERROR" readonly>
+		<p id="checkonPreText" type="text" class="labelText" style="width: 400px;" readonly> Expected Release Date </p>
+		<input id="printCheckOn" type="text" class="labelText" style="width: 400px;" placeholder="ERROR" readonly>
+        
+    </div>
+	
+	
+
+
+
+
+</main>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!--
+/*
     User License Agreement
 
     This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
@@ -25,40 +25,46 @@
        of Australia.
 
     © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
--->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Physics Tools</title>
-    <meta name="custom-title" content="Physics Tools">
-	
-	<meta charset="UTF-8">
-	<!-- making the website pretty --> 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="externaljs/pico.css">
-	<script src="js/navbar.js"></script> 
-   
-</head>
-
-<body class="theme-auto">
-            
-
- <!-- todo fix and implement the nav bar when the other sites are completed --> 
-<main class="container">
-
-	<!-- the navbar -->
-	<div id="navbar-container"></div>
-   <h1>   Physics tools </h1> 
-	<div>
-		<p> This website is designed to contain tools commonly used in nuclear medicine. This is an open-source project. All results are as is and are provided without any guarantees.<p> 
-		<p> Best efforts are made to make sure everything is correct,  if you find an error please post an issue on the github website <a href="https://github.com/achacon01/nuclearMedicineToolsWebsite" >https://github.com/achacon01/nuclearMedicineToolsWebsite</a>. </p>
+*/
 
 
-	</div>
-   
+//Fixes the output to make it look pretty
+function str_pad_left(string, pad, length) 
+{
+  return (new Array(length + 1).join(pad) + string).slice(-length);
+}
 
- 
-</main>
-</body>
-</html>
+//Updates the output time to need to be calculated when data is entered
+function dataEntry()
+{
+	document.getElementById("CalculatedDoseRate").value = "Need to Update";
+	document.getElementById("CalculatedDoseRate").style.width = '200px'
+}
+
+//Calculating the required flow rate
+function calculate()
+{
+	//getting the variables from the input form
+	var givenmL = document.getElementById('inputmL').value;
+	var givenmLperMin = document.getElementById('givenmlperMin').value;
+	var result = givenmL / givenmLperMin;
+
+	// if time < 0 or result is in error (NaN or infinity)
+	if (result < 0 || !isFinite(result) || result >= 1000 )
+	{
+		document.getElementById("CalculatedDoseRate").value = 'error';
+		document.getElementById("CalculatedDoseRate").style.width = '90px';
+	}
+	else
+	{
+		//calculting the minutes and seconds
+		const minutes = Math.floor(result);
+		const seconds = Math.round ((result - minutes) * 60);
+		//const finalTime = str_pad_left(minutes, '0', 3) + ':' + str_pad_left(seconds, '0', 2);
+		const finalTime = minutes + ' min ' + str_pad_left(seconds, '0', 2) + ' sec';
+		
+		//putting the variables in a file
+		document.getElementById("CalculatedDoseRate").value = finalTime;
+		document.getElementById("CalculatedDoseRate").style.width = '200px';
+	}
+}

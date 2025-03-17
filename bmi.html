@@ -1,0 +1,134 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Calculator</title>
+    <meta name="custom-title" content="BMI Calculator">
+
+	<meta charset="UTF-8">
+ 
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	
+	<script src="js/navbar.js"></script> 
+	<script src="bmi/bmi.js"></script> 
+	<link rel="stylesheet" href="bmi/bmi.css">
+	
+
+</head>
+
+<body class="theme-auto">
+           
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container">
+
+	<div class="standardBody">
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h1> Body Mass Index Calculator </h1>
+   
+   <p> This webpage will calculate the BMI, lean BMI or ideal BMI given patient gender, height and weight. </p>
+   
+   
+   <form name="bmiForm">
+	   <div class="grid">
+			<div class="form-group">
+				<label for="model"> BMI Model: </label>
+				<select type="text" id="model" value="BMI" onChange="clearResults()">
+					<option value="bmi">BMI</option>
+					<option value="ideal_bm">  Ideal BMI </option>
+					<option value="lean_bm">  Lean BMI </option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="isotope"> Isotope: </label>
+				<select type="text" id="isotope" value="F18" onChange="clearResults()">
+					<option value="F18">F18</option>
+					<option value="Ga68"> Ga68  </option>
+				</select>
+			</div>
+	   </div>
+   	   <div class="grid">
+			<fieldset>
+				<div id="genderSelectDiv">
+				 Gender:  
+				  <input type="radio" id="GenderChoiceMale" name="gender" value="M" onChange="clearResults()" />
+				  <label for="GenderChoiceMale">Male</label>
+
+				  <input type="radio" id="GenderChoiceFemale" name="gender" value="F" onChange="clearResults()" />
+				  <label for="GenderChoiceFemale">Female</label>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<!-- maximum Weight for a petient on PET ingenuity is 195 kg, maxmimum patient scan length is 195 cm -->
+				<label for="height"> Height (cm): </label>
+				<input type="number" id="height" onChange="clearResults()"  min="0" max="190">
+			</div>
+			<div class="form-group">
+				<label for="weight"> Weight (kg): </label>
+				<input type="number" id="weight" onChange="clearResults()" min="0" max="195">
+			</div>
+		</div>
+		<div class="grid">
+			<button onclick="calculate(event)" > Calculate </button> 
+			<button onclick="clear(event)" > Clear </button>   
+		</div>
+	</form>
+
+	<input id="Message">
+
+	<form name="resultsForm" id="resultsForm">
+		<div class="results" readonly>
+		   <div class="grid">
+				<div class="form-group">
+					<!-- maximum Weight for a petient on PET ingenuity is 195 kg, maxmimum patient scan length is 195 cm -->
+					<label for="bmi"> BMI: </label>
+					<input type="text" id="bmi" value="Push Calculate" readonly>
+				</div>
+				<div class="form-group">			
+					<label for="dose"> Dose (MBq) </label>
+					<input type="text" id="dose" value="Push Calculate" readonly>
+				</div>
+				<div class="form-group">			
+					<label for="time"> Scan (min/bed) </label>
+					<input type="text" id="time" value="Push Calculate" readonly>
+				</div>   
+		   </div>
+		</div>
+	</form>
+
+
+
+
+</main>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- making the website pretty --> 
+	<meta charset="UTF-8">
+
+    <meta name="custom-title" content="Dose Scenario Exposure Calculator">
+    <title>Dose Exposure Calculator</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	
+	
+	<script src="js/navbar.js"></script> 
+
+	<script src="exposure/exposure.js"></script> 
+
+
+
+    <link rel="stylesheet" type="text/css" href="exposure/exposure.css">
+
+
+
+
+
+</head>
+<body class="theme-auto" onload="onLoadFunction();setDefaultValues();">      
+<main class="container secure" >
+	<div id="navbar-container"></div>
+
+	<div class="content">
+
+
+		<h1>Dose to a person from a patient who underwent a nuclear medicine procedure</h1>
+		<p> This tool is designed to estimate the maxmium dose from the following scenarios. This should only be used as an initial estimation by a nuclear medicine phycisist. This tool is designed to be used in emergency or urgent case scenarios where not much information is known about specific patient doses or exposure distances. Where possible the default values in this tool should be changed to match actual data. </p>
+		<p> The data on this webpage is based on the publication by <a href="#" class="pdfLink" data-pdf="exposure/ESTIMATED DOSE FROM DIAGNOSTIC NUCLEAR MEDICINE.pdf" data-target="pdfViewer2" data-close="closeButton2"> Bartlett, M. L. (2013). Estimated dose from diagnostic nuclear medicine patients to people outside the Nuclear Medicine department. In Radiation Protection Dosimetry (Vol. 157, Issue 1, pp. 44–52). Oxford University Press (OUP). https://doi.org/10.1093/rpd/nct119 </a>. NOTE: default doses have been modified to doses used by my training facility.  </p>
+		<iframe id="pdfViewer2" class="pdfViewer"></iframe>
+		<button id="closeButton2" class="closeButton">Close PDF</button>
+		
+		<p> All biological data is taken from: <a href="#" class="pdfLink" data-pdf="exposure/128 icrp-publication-128-radiation-dose-to-patients-from-radiopharmaceuticals-a-compendium-of-current-information.pdf" data-target="pdfViewer1" data-close="closeButton1"> ICRP 128. ICRP, 2015. Radiation Dose to Patients fromRadiopharmaceuticals: A Compendium of Current Information Related to Frequently Used Substances. ICRP Publication 128. Ann. ICRP 44(2S). </a> </p>
+		<iframe id="pdfViewer1" class="pdfViewer"></iframe>
+		<button id="closeButton1" class="closeButton">Close PDF</button>
+		
+		<p> Radiation risk is based on the ICRP 103 and should be considered population risk NOT an individual risk. <b> <mark> Use with extreme care </mark> </b>. <a href="#" class="pdfLink" data-pdf="exposure/p103-the-2007-recommendations-of-the-international-commission-on-radiological-protection.pdf" data-target="pdfViewer3" data-close="closeButton3"> ICRP, 2007. The 2007 Recommendations of the International Commission on Radiological Protection. ICRP Publication 103. Ann. ICRP 37 (2-4).  </a>  </p>
+		
+		<iframe id="pdfViewer3" class="pdfViewer"></iframe>
+		<button id="closeButton3" class="closeButton">Close PDF</button>
+		
+		
+		 <ul>
+		 <h4> Assumptions </h4>
+			<li>All dose is calculated simultaneously at t=0 to maximise the dose. This will provide an upper limit and mean that the dose is independant of the order of exposure.</li>
+			<li>Day 2 and onwards will follow the same exposure pattern as input, calculated for 60 days post exposure</li>
+			<li>The delay between the first scan and the first exposure is only applied to the first day</li>
+			<li>Biological decay will only be calculated inter event, with physical decay occuring during the exposure event only.</li>
+			<li> This is the dose at the end of the procedure, not a procedure that has been aborted or partially completed. </li>
+			<li> The aborted procedures are only physical decay and assume that the patient was administered dose then immideatly left. They use the gamma constants with patient attenuation taken into account. </li>
+		</ul> 
+		
+		<h2> Calculation </h2>
+		
+		A 
+		<select id="GenderSelect" onchange="updateResult();updateWidth('GenderSelect')" class="dynamic-width">
+			<option value="Male"> Male </option>
+			<option value="Female"> Female </option>
+			<option value="WorkingPop"> Working Age Population </option>
+			<option value="WholePop"> Whole population </option>
+		</select>
+		
+		,
+		<select id="AgeSelect" onchange="updateResult();updateWidth('AgeSelect')" class="dynamic-width">
+			<option value="0-9"> 0-9 </option>
+			<option value="10-19"> 10-19 </option>
+			<option value="20-29"> 20-29 </option>
+			<option value="30-39"> 30-39 </option>
+			<option value="40-49"> 40-49 </option>
+			<option value="50-59"> 50-59 </option>
+			<option value="60-69"> 60-69 </option>
+			<option value="70-79"> 70-79 </option>
+			<option value="80-89"> 80-89 </option>
+			<option value="90-99"> 90-99 </option>			
+		</select>
+		<label for="AgeSelect" id="AgeSelectlabel">years old, </label>
+			near a nuclear medicine patient who underwent
+
+			<select id="ProcedureSelect" onchange="setDefaultValues();updateWidth('ProcedureSelect')" class="dynamic-width">
+			<option value="FDG">F18 FDG</option>
+			<option value="Bone">Bone Scan 99mTc-MDP</option>
+			<option value="Myocardial-99mTc-MIBI">Myocardial stress and rest 99mTc-MIBI</option>
+			<option value="Myocardial-201Ti">Myocardial stress and rest 201-Tl</option>
+			<option value="GBP">Gated Blood Pool 99mTc</option>
+			<option value="VQ">Ventilation and perfusion lung 99mTc-Technegas and 99mTc-MAA </option>
+			<option value="Renal-99mTc-MAG">Renal 99mTc-MAG3 </option>
+			<option value="Renal-99mTc-DMSA">Renal 99mTc-DSMA </option>
+			<option value="Thyroid">Thyroid 99mTcO4 </option>
+			<option value="Parathyroid">Parathyroid 99mTc-MIBI or 99mTcO4  </option>
+			<option value="WBC">Labelled white blood cells, Leucocytes labelled with 99mTc-SnF2 colloid   </option>
+			<option value="Breast">Breast lymphoscintigraphy  99mTc-Sb2S3 colloid (99mTc-ATC)  </option>
+			<option value="Y-90 therapy"> Y-90 therapy  </option>
+			<option value="Lu-177 therapy"> Lu-177 therapy  </option>
+			<option value="I-131 Ablation therapy"> I-131 Ablation therapy  </option>
+			<option value="F18Aborted">F18 Aborted Procedure  </option>
+			<option value="Tc99mAborted">Tc99m Aborted Procedure  </option>
+			<option value="Lu-177 therapy Aborted">Lu-177 Aborted Procedure  </option>
+			<option value="I-131 Ablation therapy Aborted"> I-131 Ablation therapy Aborted  </option>
+
+
+
+
+		</select>
+
+		with an activity of 
+		<input type="number" id="ActivityNucMedInput" oninput="updateResult();updateWidth('ActivityNucMedInput')" class="ActivityNucMedInput dynamic-width" min=0 max=1001>
+		 MBq. Estimated activity at 1 meter at end of procedure: <input type="text" readonly id="exposure" > &mu;Sv/hr.
+
+		<br>
+		<label> Load a reccomended template </label>
+		<select id="ActivitySelect" onchange="reccomendedTemplateSelector();updateWidth('ActivitySelect')" class="dynamic-width">
+			<option value="None">None </option>
+			<option value="Traveling on public transport same day">Traveling on public transport same day </option>
+			<option value="Traveling on public transport next day">Traveling on public transport next day </option>
+			<option value="Next day public transport long distance">Next day public transport long distance </option>
+			<option value="3 day delay public transport long distance">Traveling on public transport 72 hours later </option>
+
+   			<option value="Staff performing procedure - same day">Staff performing procedure - same day </option>
+   			<option value="Staff performing procedure - next day">Staff performing procedure - next day </option>
+   			<option value="ICU Staff">ICU Staff </option>
+   			<option value="General Ward Staff">General Ward Staff </option>
+			<option value="coworker">Coworker </option>
+			<option value="Partner, where partner (or patient) goes to work">Partner, where partner (or patient) goes to work </option>
+			<option value="Partner, where patient is at home with them">Partner, where patient is at home with them </option>
+			<option value="Children, where patient is at home with them">Children, where patient is at home with them </option>
+	
+		
+		
+		</select>
+		
+		
+
+		<br><br>
+
+	<!-- Delay between end of nuclear medicine procedure and first exposure --> 
+
+		What is the delay between the end of the scan and the first exposure (h) :
+		<input type="number" class="delayInput dynamic-width" id="delayInput" value=0 placeholder=0 oninput="updateResult();updateWidth('delayInput')" min=0 max=101 >
+
+
+
+		<br><br>
+
+	<!-- Loop of activities, distances and times --> 
+		<div id="divContainer" class="divContainer">
+		<div id="numberInputDiv" class="numberInputDiv">
+				<div class="divider"></div>
+
+				<div class="grid">
+				
+					<label for="numberInput" class="alinedRight">Activity 1: Distance (meter) </label>
+					<input  min=0.01 max=10 id="numberInput" type="number" class="numberInput dynamic-width" oninput="updateResult();updateWidth(this)"  title="Distance between the exposed person and the nuclear medicine patient in meters">
+				
+					<label class="alinedRight" >Duration (hour)</label>
+					<input type="number" id="DurationInput" class="DurationInput dynamic-width" oninput="updateResult();updateWidth(this)" min=0 max=100 >
+			
+					<!-- <label for="ExposureTypeSelect">Single or repeat exposure</label> -->
+					<select id="ExposureTypeSelect" onchange="updateResult();updateWidth(this)" class="ExposureTypeSelect dynamic-width">
+					<option value="Single">Single exposure </option>
+					<option value="Repeat">Daily exposure </option>
+					<option value="5 Day Week">5 Days per week </option>
+					</select>
+
+			</div>
+			<br>
+				<label>Comment </label>
+				<input type="text" class="CommentInput" oninput="updateResult()" class="dynamic-width" onkeypress="this.style.width = ((this.value.length + 40) * 8)  + 'px';" >
+				<br><br>			
+	
+		</div>
+	</div>
+
+
+
+
+
+
+		<br>
+
+	
+		
+		<button onclick="copyDiv()">New Row</button>
+		<button onclick="deleteDiv()">Clear Rows</button>
+
+
+
+
+
+		<br><br>
+
+		<label for="result">Effective dose:</label>
+		<input type="text" id="result" readonly>
+		<br>
+		<label for="resultRisk">The lifetime attributable risks of cancer incidence from this exposure is</label>
+		<input type="text" id="resultRisk" readonly style="width:10px"> Per one million
+		<br><br>
+
+		<button onclick="printPage()">Print this page</button>
+	
+	</div>
+</main>
+</body>
+</html>

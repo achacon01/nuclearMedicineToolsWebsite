@@ -1,0 +1,115 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Constants</title>
+    <meta name="custom-title" content="Constants">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	
+	<script src="js/navbar.js"></script> 
+	<script  src="constants/smithstabin.js"></script> 
+	<script  src="constants/constants.js"></script> 
+<style>
+		        .pdfViewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+        }
+        .closeButton {
+            display: none;
+        }
+		.red-button{
+		background-color: rgb(217, 53, 38);
+		border-color: rgb(217, 53, 38);
+		}
+    </style>
+</head>
+
+<body class="theme-auto" onload="test()">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container">
+
+	<!-- the navbar -->
+	<div id="navbar-container"></div>
+<h1> Exposure Constants </h1>
+ 
+ <h2> Patient attenuated gamma constants </h2>
+ <ul>
+	<li> F18: 0.092 &mu;Sv.m<sup>2</sup>/hr/MBq (<a href="#" class="pdfLink" data-pdf="constants/AAPM Task Group 108 PET and PETCT Shielding Requirements.pdf" data-target="pdfViewer3" data-close="closeButton3">   AAPM Task Group 108</a>)
+	<li> Tc99m: 0.0149 &mu;Sv.m<sup>2</sup>/hr/MBq (<a href="#" class="pdfLink" data-pdf="constants/Thomas E. Johnson, Brian K. Birky - Health Physics and Radiological Health-LWW Wolters Kluwer (2012).pdf" data-target="pdfViewer3" data-close="closeButton3">   Johnson and Birkey,  Health Physics and Radiological Health, Table 6.21</a>)
+</ul>
+ 
+  <iframe id="pdfViewer3" class="pdfViewer"></iframe>
+ <button id="closeButton3" class="closeButton red-button">Close PDF</button>
+
+  <iframe id="pdfViewer4" class="pdfViewer"></iframe>
+ <button id="closeButton4" class="closeButton red-button">Close PDF</button> 
+ 
+ <h2> Canadian Radionuclide information booklet </h2>
+<a href="#" class="pdfLink" data-pdf="constants/radionuclide_information_booklet_2024_english.pdf" data-target="pdfViewer2" data-close="closeButton2"> Canadian Nuclear Safety Commission, Radionuclide information booklet, Ottawa: Canadian Nuclear Safety Commission, 2024.</a>
+ <iframe id="pdfViewer2" class="pdfViewer"></iframe>
+ <button id="closeButton2" class="closeButton red-button">Close PDF</button>
+
+ <h2> Smith and Stabin </h2>
+<p> The following data is taken from Smith and Stabin exposure rate constants ( <a href="#" class="pdfLink" data-pdf="constants/Exposure_Rate_Constants_and_Lead_Shielding_Values 4.pdf" data-target="pdfViewer1" data-close="closeButton1"> Smith DS, Stabin MG. Exposure rate constants and lead shielding values for over 1,100 radionuclides. Health Phys. 2012 Mar;102(3):271-91. doi: 10.1097/hp.0b013e318235153a. PMID: 22420019.) </a>. 
+<iframe id="pdfViewer1" class="pdfViewer"></iframe>
+<button id="closeButton1" class="closeButton red-button">Close PDF</button>
+<br><br>
+NOTE: The constants have been converted to SI units. </p> 
+  
+<label for="dropdown">Choose an option:</label>
+<select id="dropdown">
+    <!-- Options will be added dynamically from JavaScript -->
+</select>
+
+	<div class="grid">
+	<label for="exposureConstant"> Exposure constant &mu;Sv.m<sup>2</sup> / (MBq.hr)  </label>
+	<input type="text" readonly id="exposureConstant">
+	
+	<label for="HVL"> HVL (mm Pb)  </label>
+	<input type="text" readonly id="HVL">	
+	
+	<label for="TVL"> TVL (mm Pb)  </label>
+	<input type="text" readonly id="TVL">		
+	
+	</div>
+
+	
+</main>
+</body>
+</html>

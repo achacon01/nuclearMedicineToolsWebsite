@@ -1,0 +1,155 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discharge Calculator</title>
+    <meta name="custom-title" content="Discharge Calculator">
+
+	<meta charset="UTF-8">
+
+	
+	<!-- for the chart  --> 
+	<script src="externaljs/chart.js"></script>
+	<!--<script src="externaljs/date_fns.js"></script>-->
+	<script src="externaljs/chartjs-adapter-date-fns.bundle.min.js"></script>
+ 
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+    
+	<link rel="stylesheet" href="externalDose/externalDose.css">
+	<script src="externalDose/externalDoseCode.js"></script> 
+	<script src="js/navbar.js"></script> 
+
+
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container secure">
+	<!-- the navbar -->
+	<div id="navbar-container"></div>
+   
+	<div>
+		<h2>Exposure Discharge Calculator</h2>
+		<p>This webpage will estimate when a patient can be disharged after radiotherapy. There are two calculations performed, one based on the patient observed data and one based on population average data. Discharge limits are as Per the Victorian regulations as of July 2024.  </p>
+	</div>
+   
+   
+	
+ <!-- Optional parameters used to calculate the population decay --> 
+<div class="optionalParms">
+	<h3>Optional parameters:</h3> 	
+	
+	<label for="distanceSelect">Distance measurment: </label>
+	<select type="text" id="distanceSelect" value="1m" onChange="updateDistanceMeasurment()">
+		<option value="1m"> 1 meter (limit: 25 &mu;Sv/hr) </option>
+		<option value="2m"> 2 meter (limit: 9 &mu;Sv/hr)  </option>
+		<option value="3m"> 3 meter (limit: 5 &mu;Sv/hr) </option>
+	</select>
+
+
+	<label for="radiopharmaceuticalSelect">Radiopharmaceutical: </label>
+	<select type="text" id="radiopharmaceuticalSelect" value="Undetermined" onchange="updateBiologicalHalfLife()">
+		<option value="Undetermined"> Undetermined </option>
+		<option value="NaI131"> Na-I131 (thyroid)  </option>
+		<option value="Lu177PSMA"> Lu177-PSMA </option>
+	</select>
+
+	<label for="popHalfLife"> With an estimated effective half-life (h) of : </label>
+	<input type="number" class="popHalfLife" id="popHalfLife" min=0 max=200>
+
+</div>
+
+
+<div class="divider"></div>
+<h3> Patient specific measurments: </h3>
+
+<div id="divContainer" >
+	<div id="formInputDiv" class="formInputDiv">
+	<form id="reportForm">
+			<div class="grid"> 
+				<div>
+					<label for dateTimeInput>Measurment 1: </label>
+					<input name="Date" id="dateTimeInput" type="datetime-local" class="dateTimeInput"  title="Date time of measurment">
+				</div>	
+				<div>
+					<label for doseRate1mInput> Dose Rate (&mu;Sv/hr) </label>
+					<input name="Dose rate (&mu;Sv/hr)" id="doseRate1mInput" type="number" class="doseRate1mInput" title="What is the dose rate at the distance selected" >
+				</div>
+				<div>		
+					<label>Comment </label>
+					<input name="Comment" type="text" class="CommentInput" onkeypress="this.style.width = ((this.value.length + 10) * 10) + 'px';">
+				</div>	
+			</div>
+		</form>
+	</div>
+</div>
+
+
+ <!-- The buttons for calculations --> 
+<div class="grid"> 
+	<button onclick="newRow()">New entry</button>
+	<button onclick="deleteRows(1)" class="red-button">Clear previous entry</button>
+	<button onclick="deleteRows()" class="red-button">Clear all entries</button>
+</div>
+
+ <!-- The graph --> 
+<div id="canvasDiv" class="chart-container">
+	<canvas id="myChart" style="width:100%;max-height:100%;background-color: #FFF;"></canvas>
+</div>
+
+
+ <!-- the button to calculate the graph --> 
+<button onclick="updateStoredData()" class="green-button">Calculate fit</button><br>
+
+ <!-- Displays the predicted dischargable time --> 
+<div class="divider"></div>
+<div class="grid"> 
+	<label  for="result">Predicted discharge time based on patient measurments </label>
+	<input name="result" type="text" id="result" readonly value="Undetermined">
+	<label  for="effHalfLife"> with an effective clearance half-life (h) of </label>
+	<input name="effHalfLife" type="text" id="effHalfLife" readonly value="Undetermined">
+</div>
+<br>
+<div class="printDiv">
+
+	 <!-- Predicted dischargable time based on population decay --> 
+	<label for="populationDischarge">Population discharge time (based on population effective half-life) </label>
+	<input name="populationDischarge" type="text" id="populationDischarge" readonly value="Undetermined">
+
+	<button onclick="printPage()">Print Page</button><br>
+</div>
+</main>
+</body>
+</html>

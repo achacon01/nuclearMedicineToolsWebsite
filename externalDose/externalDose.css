@@ -1,0 +1,151 @@
+/*
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+*/
+
+@charset "UTF-8";/*!
+        /* Desktop specific styles */
+	@media (min-width: 768px) {
+		.desktop-enhancements {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .hover-effect:hover {
+                background-color: #f0f0f0;
+            }
+        }
+        /* Mobile specific styles */
+        @media (max-width: 767px) {
+            .mobile-optimizations {
+                padding: 10px;
+            }
+        }
+		
+        .green-button {
+            background-color: rgb(0, 137, 90); /* Custom blue */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+        }
+        .red-button {
+            background-color: rgb(217, 53, 38); /* Custom blue */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+        }
+#myChart {
+                display: block;
+            }
+
+
+			
+.divider {
+  border-top: 3px dashed var(--divider-color, #ccc); /* Increased width and used variable */
+  width: 100%;
+  margin: 20px 0;
+}
+
+
+/* this is for the printing hide hidden elements */
+
+.bottom-table, .print-table, .print-canvas {
+	display: none;
+}
+
+.print-table-row {
+    display: table-row;
+}
+
+.print-table-cell {
+    display: table-cell;
+    border: 1px solid #000; /* Adds borders to cells */
+    padding: 8px; /* Adds padding inside cells */
+    text-align: left; /* Adjust text alignment as needed */
+}	
+
+
+
+
+/* for printing the page, show hidden elements*/
+@media print  {
+	
+		.print-canvas, .chart-container, canvas, .canvasDiv {
+		display: block;
+		display: inline-grid;
+		width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: 98vh !important; /* Prevent overflow */
+        page-break-before: auto; /* Force chart to start on a new page if needed */
+        page-break-inside: avoid; /* Avoid breaking chart */
+		break-inside: avoid;
+		
+				
+	}
+	
+	.bottom-table, .print-table{
+display: block;
+page-break-before: auto;
+}
+.print-table {
+    display: table;
+    width: 100%; /* Adjust based on your layout */
+    margin-bottom: 20px; /* Adds space between tables */
+}
+
+.print-table-row {
+    display: table-row;
+}
+
+.print-table-cell {
+    display: table-cell;
+    border: 1px solid #000; /* Adds borders to cells */
+    padding: 8px; /* Adds padding inside cells */
+    text-align: left; /* Adjust text alignment as needed */
+}	
+    /* fixing the body width to 100% */
+	body, html {
+		background: #FFF;
+        width: 100%;
+		
+    }
+	
+
+
+	    /* Hide elements that should not be printed */
+    .container, .printDiv, .green-button, .divider, .optionalParms, .divContainer, .grid, header, footer, container, .navbar-container 
+	{
+        display: none !important;
+    }
+	
+
+
+
+
+	
+}
+
+

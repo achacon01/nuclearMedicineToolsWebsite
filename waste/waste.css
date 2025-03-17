@@ -1,0 +1,118 @@
+/*
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+*/
+
+
+        .PrintContainer {
+			display: none;
+            position: relative;
+            width: 597px; /* Set a fixed width */
+            height: 487px; /* Set a fixed height */
+        }
+
+        .imagePrint {
+		            top: 0;
+            left: 0;
+            max-width: 100% !important;
+            height: 100% !important;
+			object-fit: cover !important;
+        }
+		
+        #printDateClosed {
+            top: 75px; /* Adjust these values as needed */
+            left: 410px;
+            width: 300px;
+        }
+		
+		#printIsotope {
+            top: 130px; /* Adjust these values as needed */
+            left: 375px;
+            width: 300px;
+        }
+		#printActivity {
+            top: 160px; /* Adjust these values as needed */
+            left: 375px;
+            width: 300px;
+        }
+
+		#printName {
+            top: 185px; /* Adjust these values as needed */
+            left: 375px;
+            width: 300px;
+        }
+		#checkonPreText {
+            top: 250px; /* Adjust these values as needed */
+            left: 260px;
+            width: 300px;
+        }
+		#printCheckOn {
+            top: 270px; /* Adjust these values as needed */
+            left: 260px;
+            width: 300px;
+        }		
+        .labelText {
+			color: black;
+            position: absolute;
+            background: rgba(255, 255, 255, 0); /* Optional: To make input background semi-transparent */
+            border: 0px solid #ccc;
+            padding: 5px;
+			font-size: 20px;
+        }
+		
+		/* for printing the page, show hidden elements*/
+
+
+		@media print {
+			#page-footer{
+				display: none;
+			}
+            .PrintContainer {
+            width: 597px; /* Dynamically calculates 50% of the width */
+            height: 487px; /* Dynamically calculates 50% of the height */
+			border: none; /* Remove border for print */
+			margin: 0;
+            padding: 0;
+			display: block;
+			}
+
+	
+            .imagePrint {
+                width: 100%; /* Ensure image scales properly */
+                height: auto;
+            }
+            .labelText {
+                font-size: 20px; /* Ensure font size remains consistent */
+            }
+			
+			.standardBody{
+			display: none;
+			
+			}
+			
+			
+        }

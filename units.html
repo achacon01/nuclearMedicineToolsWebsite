@@ -1,0 +1,191 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Units Calculator</title>
+    <meta name="custom-title" content="Units Calculator">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+ 	<script src="js/navbar.js"></script> 
+
+ 	<script src="units/units.js"></script> 
+ 
+ 
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container">
+
+	<!-- the navbar -->
+	<div id="navbar-container"></div>
+	<h1> Unit Conversion </h1> 
+   
+	<p> The purpose of this page is to convert units from SI units to imperical units, but you can also calculate SI to SI and imperical to imperical </p>
+   
+   
+	<h4> Activity </h4>
+   
+	<div class="grid">
+	
+		<input type="number" id="inputActivity" onChange="calculateConversion('Activity')") > 
+	
+		<select type="text" id="inputActivityUnit" onChange="calculateConversion('Activity')" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq" selected> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi"> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select>
+	
+		=
+		<input type="text" id="convertedActivity" readonly> 
+		<select type="text" id="convertedActivityUnit" onChange="calculateConversion('Activity')" style="width: 150px;">
+			<option value="Bq"> Bq </option>
+			<option value="kBq"> kBq  </option>
+			<option value="MBq"> MBq </option>
+			<option value="GBq"> GBq </option>
+			
+			<option value="nCi"> nCi </option>
+			<option value="uCi"> &mu;Ci </option>
+			<option value="mCi" selected> mCi </option>
+			<option value="Ci"> Ci </option>
+			
+		</select> 
+ 	</div>
+	
+	<!-- Absorbed dose -->
+	<h4> Absorbed Dose </h4>
+   
+	<div class="grid">
+	
+		<input type="number" id="inputADose" onChange="calculateConversion('ADose')") > 
+	
+		<select type="text" id="inputADoseUnit" onChange="calculateConversion('ADose')" style="width: 150px;">
+			<option value="uGy"> &mu;Gy  </option>
+			<option value="mGy"> mGy </option>
+			<option value="Gy" selected> Gy </option>
+			<option value="kGy"> kGy </option>
+
+			<option value="urad"> &mu;rad  </option>
+			<option value="mrad"> mrad  </option>
+			<option value="rad"> rad  </option>
+			<option value="krad"> krad  </option>
+
+			
+		</select>
+	
+		=
+		<input type="text" id="convertedADose" readonly> 
+		<select type="text" id="convertedADoseUnit" onChange="calculateConversion('ADose')" style="width: 150px;">
+			<option value="uGy"> &mu;Gy  </option>
+			<option value="mGy"> mGy </option>
+			<option value="Gy" selected> Gy </option>
+			<option value="kGy"> kGy </option>
+
+			<option value="urad"> &mu;rad  </option>
+			<option value="mrad"> mrad  </option>
+			<option value="rad"> rad  </option>
+			<option value="krad"> krad  </option>
+			
+		</select> 
+ 	</div>
+
+	<h4> Equivalent Dose </h4>
+   
+	<div class="grid">
+	
+		<input type="number" id="inputEDose" onChange="calculateConversion('EDose')") > 
+	
+		<select type="text" id="inputEDoseUnit" onChange="calculateConversion('EDose')" style="width: 150px;">
+			<option value="uSv"> &mu;Sv  </option>
+			<option value="mSv"> mSv </option>
+			<option value="Sv" selected> Sv </option>
+			<option value="kSv"> kSv </option>
+
+			<option value="urem"> &mu;rem  </option>
+			<option value="mrem"> mrem  </option>
+			<option value="rem"> rem  </option>
+			<option value="krem"> krem  </option>
+
+			
+		</select>
+	
+		=
+		<input type="text" id="convertedEDose" readonly> 
+		<select type="text" id="convertedEDoseUnit" onChange="calculateConversion('EDose')" style="width: 150px;">
+			<option value="uSv"> &mu;Sv  </option>
+			<option value="mSv"> mSv </option>
+			<option value="Sv" selected> Sv </option>
+			<option value="kSv"> kSv </option>
+
+			<option value="urem"> &mu;rem  </option>
+			<option value="mrem"> mrem  </option>
+			<option value="rem"> rem  </option>
+			<option value="krem"> krem  </option>
+			
+		</select> 
+ 	</div> 
+
+	<h4> Exposure </h4>
+   
+	<div class="grid">
+	
+		<input type="number" id="inputExposure" onChange="calculateConversion('Exposure')") > 
+	
+		<select type="text" id="inputExposureUnit" onChange="calculateConversion('Exposure')" style="width: 150px;">
+			<option value="c/kg"> c/kg  </option>
+			<option value="R"> R  </option>
+
+		</select>
+	
+		=
+		<input type="text" id="convertedExposure" readonly> 
+		<select type="text" id="convertedExposureUnit" onChange="calculateConversion('Exposure')" style="width: 150px;">
+			<option value="c/kg"> c/kg  </option>
+			<option value="R"> R  </option>
+		</select> 
+ 	</div> 
+ 
+</main>
+</body>
+</html>

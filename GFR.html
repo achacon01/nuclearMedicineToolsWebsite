@@ -1,0 +1,451 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>GFR Calculator</title>
+    <meta name="custom-title" content="GFR Calculator">
+	
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	<link rel="stylesheet" href="GFR/gfr.css">
+
+ 	<script src="js/navbar.js"></script> 
+  	<script src="GFR/gfr.js"></script> 
+
+	<script src="externaljs/chart.js"></script>
+	<script src="externaljs/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <script src="externaljs/jquery.js"></script>
+
+
+
+
+<!--[if gte mso 9]><![endif]-->
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="container" style="min-width: 576px;">
+<div id="navbar-container"></div>
+<div class="mainBody">
+<h1> Glomerular Filtration Rate </h1>
+
+<p> The purpose of this tool is to calculate the glomerular filtration rate for nuclear medicine patients </p>
+
+
+<button onclick='loadTestData3TimePoint();hideResults()'>load test data (3 time point)</button>
+<button onclick='loadTestDataSingle();hideResults()'>load test data (single)</button>
+
+
+<button class="pinkBackground" onclick='showLoadForm();hideResults()' id="loadDatabaseBttn">load previous GFR from database</button>
+<button class="redBackground" onclick='hideResults();clearData()'>Clear form</button>
+<div class="loadDatabase">
+<br>
+
+	<form name="searchForm">
+		<fieldset role="group">
+			<label for="URN" > URN:&nbsp;&nbsp;</label> <input id="URN" type="text" onchange="hideResults();hideRecordDrop()"> <input type="submit" value="Search" onclick='loadDatabase()' />
+		</fieldset>
+
+	</form>
+	<fieldset role="group" class="inline-fieldset" id="FinddropDown" >	
+	    <div class="row">
+			<label for="recordList" > Select a study to display: </label>
+			<select onchange="loadSelectedRecord();hideResults()" id="recordList">
+				<option value="">Select a study</option>
+			</select>
+		</div>
+	</fieldset>
+<br>
+</div>
+
+<br> <br>
+	<fieldset role="group" class="inline-fieldset">	
+		<div class="row">
+			
+			<label for="user" > User: </label> <input id="user" type="text" onchange="hideResults()">
+		</div>
+	</fieldset>
+	
+	<form name="patient">
+	<fieldset role="group" class="inline-fieldset">	
+		<div class="row" id="GFRType">
+			<label > GFR Type: </label>
+			<div>
+				<input type="radio" id="GFRChoiceSingle" name="GFRType" value="Single"  onchange="hideResults();setSingleForm()" />
+				<label for="GFRChoiceSingle">Single</label>
+				  
+
+				<input type="radio" id="GFRChoiceMulti" name="GFRType" value="Multi"  onchange="hideResults();setMultiForm()"  checked />
+				<label for="GFRChoiceMulti">3 time point</label>
+				<p id="confirmationTextSingle" class="confirmationTextSingle"> <small> NOTE: Single timepoint GFR is different to 3-timepoint GFR. It is known that the single GFR will be around 40% lower than the 3-timepoint calculation. </small></p>
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset role="group" class="inline-fieldset">	
+
+	<legend> <h4> Patient Details </h4> </legend>
+
+	    <div class="row">
+			<label for="URN" > URN: </label> <input id="URN" type="text" onchange="hideResults()">
+		</div>
+		<div class="row">
+			<label for="fName" > First Name: </label> <input type="text" id="fName" onchange="hideResults()">		
+			<label for="lName"> Last&nbsp;Name: </label> <input type="text" id="lName" onchange="hideResults()">
+		</div>
+		<div class="row" id="GenderChoice">
+			<label > Gender: </label>
+			<div>
+				<input type="radio" id="GenderChoiceMale" name="gender" value="M"  onchange="hideResults()" />
+				<label for="GenderChoiceMale">Male</label>
+
+				<input type="radio" id="GenderChoiceFemale" name="gender" value="F"  onchange="hideResults()" />
+				<label for="GenderChoiceFemale">Female</label>
+			</div>
+		</div>
+		<div class="row">
+			<label class="right" for="dob"> DOB: </label><input type="date" id="dob" onchange="hideResults()">
+		</div>
+		
+		<div class="row">
+			<label  for="height"> Height (cm): </label><input type="number" id="height" onchange="hideResults()">
+			<label  for="weight"> Weight (kg): </label><input type="number" id="weight" onchange="hideResults()">		
+		</div>
+	</fieldset>
+	</form>		
+
+	<div class="divider"></div>
+	<form name="calibration">
+	<fieldset role="group" class="inline-fieldset">	
+	<legend> <h4> Calibration </h4> </legend>
+	<legend> <h5> Background Water </h5> </legend>
+		<div class="row">
+			<label for="bgc1"> Counts&nbsp;1: </label><input type="number" id="bgc1" onchange="hideResults()">
+			<label for="bgc2"> Counts&nbsp;2: </label><input type="number" id="bgc2" onchange="hideResults()">		
+		</div>
+		<legend> <h5> Standard </h5> </legend>
+		<div class="row">
+			<label for="ct1"> Counts&nbsp;1: </label><input type="number" id="ct1" onchange="hideResults()">
+			<label for="ct2"> Counts&nbsp;2: </label><input type="number" id="ct2" onchange="hideResults()">		
+		</div>
+	</fieldset>
+	</form>
+
+	<div class="divider"></div>
+	<form name="study">
+	<fieldset role="group" class="inline-fieldset">	
+	<legend> <h4> Patient Details </h4> </legend>
+		<div class="row">
+			<label for="iTime"> Injection Time (hh:mm am/pm): </label><input type="time" id="iTime" onchange="hideResults()">
+			<label for="dilution"> Dilution (mL): </label><input type="number" id="dilution" onchange="hideResults()">		
+		</div>
+		<legend> <h5> Patient Activity </h5> </legend>
+		<div class="row">
+			<label for="PtPreMBq"> Pre (MBq): </label><input type="number" id="PtPreMBq" onchange="hideResults()">
+			<label class="right" for="PtPostMBq"> Post (MBq): </label><input type="number" id="PtPostMBq" onchange="hideResults()">		
+		</div>
+		<legend> <h5> Standard Activity </h5> </legend>
+		<div class="row">
+			<label for="StdPreMBq"> Pre (MBq): </label><input type="number" id="StdPreMBq" onchange="hideResults()">
+			<label for="StdPostMBq"> Post (MBq): </label><input type="number" id="StdPostMBq" onchange="hideResults()">		
+		</div>
+	</fieldset>
+	</form>
+
+
+	<div class="divider"></div>
+	<form name="Samples">
+	<fieldset role="group" class="inline-fieldset">	
+	<legend> <h4> Samples </h4> </legend>
+		<div class="row">
+			<label for="s1Time"> Sample 1 Time (hh:mm am/pm): </label><input type="time" id="s1Time" onchange="hideResults()">
+			<label for="s1c1"> Counts&nbsp;1: </label><input type="number" id="s1c1" onchange="hideResults()">
+			<label for="s1c2"> Counts&nbsp;2: </label><input type="number" id="s1c2" onchange="hideResults()">		
+		</div>
+		<div class="row" id="sample2Row">
+			<label for="s2Time"> Sample 2 Time (hh:mm am/pm): </label><input type="time" id="s2Time" onchange="hideResults()">
+			<label for="s2c1"> Counts&nbsp;1: </label><input type="number" id="s2c1" onchange="hideResults()">
+			<label for="s2c2"> Counts&nbsp;2: </label><input type="number" id="s2c2" onchange="hideResults()">		
+		</div>
+		<div class="row" id="sample3Row">
+			<label for="s3Time"> Sample 3 Time (hh:mm am/pm): </label><input type="time" id="s3Time" onchange="hideResults()">
+			<label for="s3c1"> Counts&nbsp;1: </label><input type="number" id="s3c1" onchange="hideResults()">
+			<label for="s3c2"> Counts&nbsp;2: </label><input type="number" id="s3c2" onchange="hideResults()">		
+		</div>
+	</fieldset>
+	</form>
+
+   <button onClick="calculate()"> Calculate GFR </button>
+	<input readonly id="Message">
+
+</div> <!-- end mainBody class -->  
+ 
+
+ <!-- The graph --> 
+<div id="canvasDiv" class="chart-container">
+	<canvas id="myChart" style="width:100%;max-height:100%;background-color: #FFF;"></canvas>
+	<br>
+</div>
+ 
+ <div id="resultsSection">
+
+	<form name="results" id="resultsForm">
+	<div style="display: flex;">
+		<div style="width: 50%; box-sizing: border-box; padding: 10px; display: flex; align-items: center; justify-content: flex-end; max-height: 30mm;"><h1> GFR Report </h1></div>
+		<div style="width: 50%; box-sizing: border-box; padding: 10px; display: flex; align-items: center; justify-content: flex-start; max-height: 30mm;"> <img src="GFR/logo.png" alt="Logo" id="logo" style="max-height: 20mm; max-width: 100%; height: auto; width: auto;"></div>
+
+		
+	</div>
+	
+	<fieldset role="group" class="inline-fieldset-results">	
+	<div class="bordered-div" style="width:100%;">
+		<div>
+			<label for="ptName" style="width: 15%; display: inline-block;" > Patient Name: </label> <input id="ptName" readonly style="border: none; width: 35%; display: inline-block;">
+			<label for="ur" style="text-align: right; width: 10%; display: inline-block;"> UR: </label> <input id="ur" readonly style="border: none; width: 10%; display: inline-block;"> 
+			<label for="dob" style="text-align: right; width: 10%; display: inline-block;"> DOB: </label> <input id="dob" readonly style="border: none; width: 10%; display: inline-block;"> 
+		</div>
+	</div>
+
+	<div class="bordered-div">
+		<div>
+		<h5>Samples</h5>
+		</div>
+
+		<div class="row">
+			<label> </label> 
+			<input class="header" readonly style="border: none;" value="1" > 
+			<input  class="header" readonly style="border: none;" value="2"> 
+			<input readonly style="border: none;">
+			<input  class="header"  style="border: none;" value="BGCor"> 
+			<input readonly style="border: none;">
+			<input readonly style="border: none;">
+			<input readonly style="border: none;">
+		</div>
+		
+		
+		<div class="row">
+			<label for="waterBg1"> Water BG: </label> <input id="waterBg1" readonly style="border: none;"> 
+			<input id="waterBg2" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input id="waterBgAve" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input readonly style="border: none;" >
+			<input readonly style="border: none;">
+		</div>
+		
+		<div class="row">
+			<label for="standard"> Standard </label> 
+			<input id="std1" readonly style="border: none;padding: 0;"> 
+			<input id="std2" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input id="stdave" readonly style="border: none;"> 
+			<input class="header" readonly style="border: none;"value="Fit">
+			<input class="header" readonly style="border: none;" value="Acq Time">
+			<input readonly style="border: none;">
+		</div>
+		
+		<div class="row">
+			<label for="plasma1"> Plasma 1 </label> 
+			<input id="plasma1ct1" readonly style="border: none;padding: 0;"> 
+			<input id="plasma1ct2" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input id="plasma1ave" readonly style="border: none;"> 
+			<input id="plasma1fit" readonly style="border: none;">
+			<input id="plasma1time" readonly style="border: none;">
+			<input  class="header" readonly style="border: none;" value="mins">
+		</div>
+
+		<div class="row" id="resPlasma2">
+			<label for="plasma2"> Plasma 2 </label> 
+			<input id="plasma2ct1" readonly style="border: none;padding: 0;"> 
+			<input id="plasma2ct2" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input id="plasma2ave" readonly style="border: none;"> 
+			<input id="plasma2fit" readonly style="border: none;">
+			<input id="plasma2time" readonly style="border: none;">
+			<input  class="header" readonly style="border: none;" value="mins">
+		</div>
+
+		<div class="row" id="resPlasma3">
+			<label for="plasma3"> Plasma 3 </label> 
+			<input id="plasma3ct1" readonly style="border: none;padding: 0;"> 
+			<input id="plasma3ct2" readonly style="border: none;"> 
+			<input readonly style="border: none;">
+			<input id="plasma3ave" readonly style="border: none;"> 
+			<input id="plasma3fit" readonly style="border: none;">
+			<input id="plasma3time" readonly style="border: none;">
+			<input  class="header" readonly style="border: none;" value="mins">
+		</div>
+	</div>
+	<div class="bordered-div">
+		<div>
+			<h5>Syringe Activity</h5>
+		</div>
+		
+		<div class="row">
+			<input readonly style="border: none;padding: 0;"> 
+			<input class="header" readonly style="border: none;padding: 0;" value="Pre (MBq)"> 
+			<input class="header" readonly style="border: none;" value="Post (MBq)"> 
+			<input readonly style="border: none;">
+			<input class="header" readonly style="border: none;" value="Given (MBq)"> 
+		</div>
+
+		<div class="row">
+			<label for="syringeStandardPre"> Standard </label> 
+			<input id="syringeStandardPre" readonly style="border: none;padding: 0;"> 
+			<input class="header" id="syringeStandardPost" readonly style="border: none;" value="post"> 
+			<input readonly style="border: none;">
+			<input class="header" id="syringeStandardGiven" readonly style="border: none;" value="given"> 
+		</div>		
+
+		<div class="row">
+			<label for="syringePtPre"> Patient Dose </label> 
+			<input id="syringePtPre" readonly style="border: none;padding: 0;"> 
+			<input class="header" id="syringePtPost" readonly style="border: none;" value="post"> 
+			<input readonly style="border: none;">
+			<input class="header" id="syringePtGiven" readonly style="border: none;" value="given"> 
+		</div>		
+	</div>
+	<div >
+		<div class="row">
+			<label for="resHeight"> Height (cm): </label> 
+			<input id="resHeight" readonly style="border: none;">
+			<label for="resWeight"> Weight (kg): </label> 
+			<input id="resWeight" readonly style="border: none;">
+			<label for="resDilution"> Dilution (mL): </label> 
+			<input id="resDilution" readonly style="border: none;"> 			
+		</div>
+	</div>
+
+	<div class="bordered-div" style="width:100%;">
+		<div>
+			<h5>Plasma Count</h5>
+		</div>
+		<div class="row" id="resPlanaFit">
+			<label for="T0" style="text-align:right;"> T<sub>0</sub>: </label> 
+			<input id="T0" readonly style="border: none;">
+			<label for="T12" style="text-align:right;"> T<sub>1/2</sub>: </label> 
+			<input id="T12" readonly style="border: none;">
+		</div>
+		<div class="row">
+			<label for="BSA" style="text-align:right;"> BSA: </label> 
+			<input id="BSA" readonly style="border: none;">
+			<label for="EVC" style="text-align:right;"> EVC: </label> 
+			<input id="EVC" readonly style="border: none;">
+		</div>	
+	</div>	
+
+	<div class="bordered-div" style="width:100%;">
+		<div>
+			<h5>Average Adult GFR</h5>
+		</div>
+		<div class="row">
+			<input id="gender" readonly style="border: none; text-align: right;">
+			<input id="genderValue" readonly style="border: none;">
+		</div>
+	</div>	
+
+	<div class="bordered-div" style="width:100%;">
+		<div>
+			<h5>GFR</h5>
+		</div>
+		<div class="row">
+			<input class="header" readonly style="border: none;" value="GFR">
+			<input class="header" readonly style="border: none;" Value="GFR (mL/Min)">
+			<input class="header" readonly style="border: none;" Value="GFR/m&#178; (mL/Min)">
+			<input class="header" readonly style="border: none;" Value="GFR/1.73m&#178; (mL/Min)">
+			<input class="header" readonly style="border: none;" Value="GFR (%)">
+		</div>
+	
+		<div class="row">
+			<label for="nonBMCorrected"> Non BM-Corrected </label>
+			<input id="nonBMCorrected" readonly style="border: none;">
+			<input id="nonBMCorrected_GFRm" readonly style="border: none;">
+			<input id="nonBMCorrected_GFR173m" readonly style="border: none;">
+			<input id="nonBMCorrected_GFRperc" readonly style="border: none;">
+		</div>
+		
+		<div class="row">
+			<label for="BMCorrected"> BM-Corrected </label>
+			<input id="BMCorrected" readonly style="border: none;">
+			<input readonly style="border: none;">
+			<input id="BMCorrected_GFR173m" readonly style="border: none;">
+			<input id="BMCorrected_GFRperc" readonly style="border: none;">
+		</div>
+		
+		
+	</div>	
+	<div id="resultsSingleWarning">
+		<p>* NOTE: Calculated via single time point. It is known that results will be around 40% lower than the 3-timepoint calculation </p>
+	</div>
+
+	<div class="row">
+		<label for="dateEntered"> Date Calculated: </label>
+		<input id="dateEntered" readonly style="border: none;">
+	</div>
+	<div class="row">
+		<label for="personEntered"> Entered By: </label>
+		<input id="personEntered" readonly style="border: none;">
+	</div>
+
+
+	</fieldset>
+	</form>	
+	<button id="printBtn" onclick="window.print()" class="greenBackground"> Print Report </button> <button id="saveDataBaseBtn" onclick="saveToDataBase()" class="purpleBackground"> Save to database </button>
+	
+</div>
+			
+			
+			
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</main>
+</body>
+</html>

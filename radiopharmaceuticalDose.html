@@ -1,0 +1,114 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Radiopharmaceutical Dose</title>
+    <meta name="custom-title" content="Radiopharmaceutical Dose">
+
+	<meta charset="UTF-8">
+
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	
+
+ 	<script src="radiopharmaceuticalDose/radiopharmaceuticalDose.js"></script> 
+ 
+     <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+		        .pdfViewer {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+        }
+        .closeButton {
+            display: none;
+        }
+
+    </style>
+	
+	<script src="js/navbar.js"></script> 
+
+</head>
+
+<body class="theme-auto">
+            
+
+ <!-- todo fix and implement the nav bar when the other sites are completed --> 
+<main class="secure container">
+
+	<!-- the navbar -->
+	<div id="navbar-container"></div>
+	<h1> Population radiophamaceutical dose </h1> 
+   
+	<p> The purpose of this webpage is to get a quick population estimation of the organ dose and whole body effective dose from radiopharmaceuticals. All data is taken from  <a href="#" class="pdfLink" data-pdf="radiopharmaceuticalDose/128 icrp-publication-128-radiation-dose-to-patients-from-radiopharmaceuticals-a-compendium-of-current-information.pdf" data-target="pdfViewer1" data-close="closeButton1"> ICRP 128. ICRP, 2015. Radiation Dose to Patients fromRadiopharmaceuticals: A Compendium of Current Information Related to Frequently Used Substances. ICRP Publication 128. Ann. ICRP 44(2S) </a>.  </p>
+    <iframe id="pdfViewer1" class="pdfViewer"></iframe>
+	<button id="closeButton1" class="closeButton redBackground">Close PDF</button>
+	
+	<div class="grid">
+		<select id="radiopharmaceutical" onChange="clearTable()">
+			<option value="F18 FDG"> F18 FDG </option>
+			<option value="Tc99m MIBI Rest"> Tc99m MIBI Rest </option>
+			<option value="Tc99m MIBI Exercise"> Tc99m MIBI Exercise </option>
+			<option value="Tc99m MDP"> Tc99m MDP </option>
+			<option value="Tc99m Pertechnetate"> Tc99m Pertechnetate </option>
+			<option value="Tc99m MAA"> Tc99m MAA </option>
+			<option value="Tc99m MAG3"> Tc99m MAG3 </option>
+
+
+
+		</select>
+		
+		<input type="number" id="dose" onChange="clearTable()">
+		
+		<select id="unitSelect" onChange="clearTable()">
+			<option value="MBq"> MBq </option>
+			<option value="mCi"> mCi </option>
+		</select>		
+	</div>
+	<button onclick="createTableFrom2DArray()">Calculate</button>
+	
+    <table id="arrayTable"></table>
+ 
+</main>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!--
+    User License Agreement
+
+    This code and associated data were created by Andrew Chacon and Graeme O'Keefe (the "Creators"). 
+    By using this code and associated data (the "Software"), you agree to the following terms:
+
+    1. The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to 
+       the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the 
+       Creator be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, 
+       arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+
+    2. The Software is intended for non-clinical use only. The Creator does not provide any guarantees or assurances 
+       regarding the suitability of the Software for medical or clinical purposes. Users assume all responsibility for 
+       any application of the Software in any setting.
+
+    3. Redistribution and use of the Software, with or without modification, are permitted provided that the following 
+       conditions are met:
+       - The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+         of the Software.
+       - Proper attribution to the Creator must be provided in all derivative works or reproductions.
+
+    4. The Creator reserves the right to modify or discontinue the Software at any time without prior notice.
+
+    5. Any disputes arising from the use of the Software shall be governed by and construed in accordance with the laws 
+       of Australia.
+
+    © 2024 Andrew Chacon and Graeme O'Keefe. All rights reserved.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Activity</title>
+    <meta name="custom-title" content="Activity">
+
+	<meta charset="UTF-8">
+ 
+	<!-- making the website pretty --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="externaljs/pico.css">
+	<script src="js/navbar.js"></script> 
+	
+	<script src="activity/activity.js"></script> 
+	<link rel="stylesheet" href="activity/activity.css">
+
+</head>
+
+<body class="theme-auto">
+           
+<main class="container">
+
+	<div class="standardBody">
+   <!-- the navigation bar -->
+	<div id="navbar-container"></div>
+   
+   <h1> Activity </h1>
+   
+   <p> This webpage will calculate the activity of isotopes which have decayed or undecayed. </p>
+   <button class="redBackground" onclick='clearData()'> Clear </button>
+    <form name="activityForm">
+
+		<div class="grid">
+				<div class="form-group">
+					<label for="isotope"> Isotope: </label>
+					<select id="isotope" value="F18" onChange="onCalculateActivity()">
+						<option value="F18" selected>F18</option>
+						<option value="Tc99m">Tc99m</option>
+						<option value="Ga68">Ga68</option>
+						<option value="Ga67">Ga67</option>
+						<option value="I131">I131</option>
+						<option value="In111">In111</option>
+						<option value="Lu177">Lu177</option>
+						<option value="Tl201">Tl201</option>
+						<option value="C11">C11</option>
+						<option value="Cu64">Cu64</option>
+						<option value="Y90">Y90</option>
+						<option value="Zr89">Zr89</option>
+						<option value="I124">I124</option>
+						<option value="O15">O15</option>
+					</select>
+			</div>
+			<div class="form-group">
+				<label for="HalfLife"> Half Life (min): </label>
+				<input id="HalfLife" type="text" readonly value="109.8">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="RefInjectedTime" > Injection Time (hh:mm  am/pm): </label>
+			<input id="RefInjectedTime" type="time" onChange="onCalculateActivity()" >
+		</div>
+	<div class="grid">
+		<label for="PreInjectedActivity"> Initial Activity (MBq) </label>
+		<input id="PreInjectedActivity" type="number" min="0" onChange="onCalculateActivity()" >
+		
+		<label for="PreInjectedTime"> Initial Time (hh:mm  am/pm) </label>
+		<input id="PreInjectedTime" type="time" onChange="onCalculateActivity()" >
+	</div>
+	<div class="grid">
+		<label for="PostInjectedActivity"> Residual Activity (MBq) </label>
+		<input id="PostInjectedActivity" type="number" min="0" onChange="onCalculateActivity()" >
+		
+		<label for="PostInjectedTime"> Residual Time (hh:mm  am/pm) </label>
+		<input id="PostInjectedTime" type="time" onChange="onCalculateActivity()" >
+	</div>	
+	
+	</form>
+
+   
+    <form name="resultsForm" id="resultsForm">
+	<h3> Administered Activity </h3>
+		<div class="form-group">
+			<label for="RefInjectedActivity"> Administered Activity (MBq): </label>
+			<input id="RefInjectedActivity" type="text" readonly>
+		</div>
+
+		<div class="grid">
+			<div class="form-group">
+				<label for="RefPreInjectedActivity"> Activity at administered time (MBq): </label>
+				<input id="RefPreInjectedActivity" type="text" readonly>
+			</div>
+			<div class="form-group">
+				<label for="RefPostInjectedActivity"> Residual at administered time (MBq): </label>
+				<input id="RefPostInjectedActivity" type="text" readonly>
+			</div>
+		</div>	
+	
+	
+	</form>
+	<input readonly id="Message">
+
+
+</main>
+</body>
+</html>
