@@ -48,4 +48,8 @@ Project Aims
 
 The goal of this project is to create a comprehensive and user-friendly website for performing common nuclear medicine calculations. Its modular architecture not only streamlines routine tasks but also paves the way for future expansion, allowing additional features and calculations to be integrated over time.
 
+To remove the warning header from the webpages edit the js/navbar.js file and remove the warning in the document.addEventListener("DOMContentLoaded", function()) function
+
+The physics password is "physicsonly"
+
 A more detailed documentation can be found in the encloded readme PDF
