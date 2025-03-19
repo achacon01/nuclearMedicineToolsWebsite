@@ -3,7 +3,6 @@
 Nuclear Medicine Tools
 
 Author: Andrew Chacon
-Contact: andrew.chacon@austin.org.au
 Date: March 17, 2025
 Overview
 
