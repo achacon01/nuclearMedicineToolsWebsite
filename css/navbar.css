@@ -149,7 +149,9 @@ h1{
 	top: 0;
 	left: 100%;
 }
-
+.right-menu-item {
+    position: relative;
+}
 .navbar > li {
     position: relative;
 }
@@ -201,8 +203,7 @@ h1{
 /* anything with a secure class is hidden, unless it has the cookie or is unlocked with the password */
 .secure
 {
-	/*visibility : hidden;*/
-	display: none;
+	display : none;
 }
 
 /*forcing the background color to be solid in the passowrd div so that the text can be read */
