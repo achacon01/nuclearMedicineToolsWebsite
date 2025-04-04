@@ -305,7 +305,7 @@ async function authenticate()
 {
     var password;
     try {
-        password = await passwordPrompt("Enter the Physics Password");
+        password = await passwordPrompt("Enter the Physics Password: \"physicsonly\"");
 
         password = encryptString(password); 
         if (password === passwordHASH) 
